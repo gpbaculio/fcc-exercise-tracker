@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    .timestamp-container {
+      height: 100vh;
+    }
+
+    section h4 {
+      text-align: center;
+    }
+
+    .url-form {
+      border: solid black 1px
+    }
+  </style>
+</head>
+
+<body onload="onLoad()">
+  <div class="timestamp-container container d-flex flex-column align-items-center justify-content-around">
+    <h3>API Project: URL Shortener Microservice</h3>
+    <section>
+      <h4>User Stories (WIP):</h4>
+      <ol>
+        <li>
+          I can POST a URL to [project_url]/api/shorturl/new and I will receive a shortened URL in the JSON response.
+          Example : {"original_url":"www.google.com","short_url":1}
+        </li>
+        <li>
+          If I pass an invalid URL that doesn't follow the http(s)://www.example.com(/more/routes) format, the JSON
+          response will contain an error like {"error":"invalid URL"}
+          HINT: to be sure that the submitted url points to a valid site you can use the function dns.lookup(host, cb)
+          from the dns core module.
+        </li>
+        <li>
+          When I visit the shortened URL, it will redirect me to my original link.
+        </li>
+      </ol>
+    </section>
+    <section>
+      <h4>Short Url Creation</h4>
+      <ol>
+        <li>POST: <a target="_blank" aria-disabled="true" rel="noopener noreferrer">api/shorturl/new -
+            https://www.google.com</a></li>
+      </ol>
+      <div class="d-flex justify-content-center">
+        <form class="url-form px-5 py-3" action="/api/shorturl/new" method="post">
+          URL: <input id="input-url" type="text" name="url">
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </section>
+    <section class="d-flex flex-column justify-content-center align-items-center">
+      <h4>Example Usage:</h4>
+      <a class="usage" target="_blank" rel="noopener noreferrer">api/shortUrl/394328069</a>
+      <h4 class="mt-3">Will redirect to:</h4>
+      <p>www.freecodecamp.org</p>
+    </section>
+    <section class="d-flex flex-column justify-content-center align-items-center">
+      <h6>
+        Github:
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/gpbaculio/fcc-url-shortener">
+          FCC URL Shortener Microservice
+        </a>
+      </h6>
+      <h6>by <a target="_blank" rel="noopener noreferrer" href="http://bit.ly/gpbaculio">Glendon Philipp B.
+          Baculio</a> </h6>
+    </section>
+  </div>
+  <script>
+    const onLoad = () => {
+      Array.from(document.getElementsByClassName("usage")).map(usage => {
+        const url = window.location.href.concat(usage.innerHTML)
+        usage.innerHTML = url
+        usage.href = url
+      })
+    }
+    const editInput = document.getElementById('input-url');
+    editInput.value = 'www.freecodecamp.org'
+    editInput.addEventListener('input', e => {
+      editInput.value = e.target.value;
+    })
+  </script>
+</body>
+
+</html>

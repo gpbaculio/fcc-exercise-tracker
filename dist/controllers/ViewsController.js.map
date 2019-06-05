@@ -1,0 +1,1 @@
+{"version":3,"file":"ViewsController.js","sourceRoot":"","sources":["../../lib/controllers/ViewsController.ts"],"names":[],"mappings":";;AACA,MAAM,IAAI,GAAG,OAAO,CAAC,MAAM,CAAC,CAAC;AAC7B,MAAqB,eAAe;IAApC;QACS,mBAAc,GAAG,CAAC,GAAY,EAAE,GAAa,EAAE,EAAE;YACtD,GAAG,CAAC,QAAQ,CAAC,IAAI,CAAC,OAAO,CAAC,SAAS,GAAG,2BAA2B,CAAC,CAAC,CAAC;QACtE,CAAC,CAAC;IACJ,CAAC;CAAA;AAJD,kCAIC"}

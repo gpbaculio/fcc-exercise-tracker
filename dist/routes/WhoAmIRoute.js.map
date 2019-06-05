@@ -1,0 +1,1 @@
+{"version":3,"file":"WhoAmIRoute.js","sourceRoot":"","sources":["../../lib/routes/WhoAmIRoute.ts"],"names":[],"mappings":";;AAAA,sEAA+D;AAE/D,MAAqB,YAAY;IAAjC;QACS,qBAAgB,GAAqB,IAAI,0BAAgB,EAAE,CAAC;IAIrE,CAAC;IAHQ,MAAM,CAAC,GAAG;QACf,GAAG,CAAC,KAAK,CAAC,aAAa,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,gBAAgB,CAAC,YAAY,CAAC,CAAC;IACnE,CAAC;CACF;AALD,+BAKC"}
