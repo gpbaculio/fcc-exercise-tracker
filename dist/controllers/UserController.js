@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = require("../models/User");
+const Exercise_1 = require("models/Exercise");
 class UserController {
     constructor() {
-        this.isExisting = (username) => __awaiter(this, void 0, void 0, function* () {
-            const user = yield User_1.default.findOne({ username });
+        this.isExisting = (key, val) => __awaiter(this, void 0, void 0, function* () {
+            const user = yield User_1.default.findOne({ [key]: val });
             if (user !== null)
                 return true;
             else
@@ -20,7 +21,7 @@ class UserController {
         });
         this.add = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { username } = req.body;
-            if (this.isExisting(username)) {
+            if (this.isExisting('username', username)) {
                 res.json('Username already taken.');
             }
             else {
@@ -32,6 +33,25 @@ class UserController {
                     .then(({ _id, username }) => {
                     res.json({ _id, username });
                 })
+                    .catch(error => res.json({ error }));
+            }
+        });
+        this.getLog = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { userId, from, to, limit } = req.query;
+            if (!userId)
+                return res.json('No UserId provided');
+            if (this.isExisting('_id', userId)) {
+                if (!from && to)
+                    return res.json('Please provide starting date');
+                const query = { userId };
+                if (from)
+                    query.date = { $gte: from };
+                if (to)
+                    query.date = Object.assign({}, query.date, { $lte: to });
+                if (limit)
+                    query.limit = limit;
+                yield Exercise_1.default.find({ query })
+                    .then(exercises => res.json(exercises))
                     .catch(error => res.json({ error }));
             }
         });

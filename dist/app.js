@@ -4,12 +4,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 var cors = require('cors');
-const UrlRoutes_1 = require("./routes/UrlRoutes");
+const UserRoutes_1 = require("./routes/UserRoutes");
 const ViewsRoutes_1 = require("./routes/ViewsRoutes");
 class App {
     constructor() {
         this.app = express();
-        this.urlRoutes = new UrlRoutes_1.default();
+        this.urlRoutes = new UserRoutes_1.default();
         this.viewsRoutes = new ViewsRoutes_1.default();
         this.mongoSetup();
         this.app.use(bodyParser.urlencoded({

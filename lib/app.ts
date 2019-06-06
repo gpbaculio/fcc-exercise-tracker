@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 const bodyParser = require('body-parser');
 var cors = require('cors');
 
-import UrlRoutes from './routes/UrlRoutes';
+import UrlRoutes from './routes/UserRoutes';
 import ViewsRoutes from './routes/ViewsRoutes';
 
 class App {

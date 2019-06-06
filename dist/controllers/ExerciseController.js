@@ -12,7 +12,7 @@ const Exercise_1 = require("../models/Exercise");
 const User_1 = require("models/User");
 class ExerciseController {
     constructor() {
-        this.addTodo = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.add = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { description, duration, date, userId } = req.body;
             const user = yield User_1.default.findOne({ userId });
             if (user === null)
@@ -21,7 +21,7 @@ class ExerciseController {
             exercise.date instanceof Date;
             exercise
                 .save()
-                .then(({ description, duration }) => {
+                .then(({ description, duration, date }) => {
                 res.json({
                     username: user.username,
                     description,

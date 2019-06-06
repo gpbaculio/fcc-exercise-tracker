@@ -3,7 +3,7 @@ import Exercise, { ExerciseDocument } from '../models/Exercise';
 import User from 'models/User';
 
 export default class ExerciseController {
-  public addTodo = async (req: Request, res: Response) => {
+  public add = async (req: Request, res: Response) => {
     const { description, duration, date, userId } = req.body;
     const user = await User.findOne({ userId });
     if (user === null) return res.json('User Id does not exist');
@@ -11,7 +11,7 @@ export default class ExerciseController {
     exercise.date instanceof Date;
     exercise
       .save()
-      .then(({ description, duration }: ExerciseDocument) => {
+      .then(({ description, duration, date }: ExerciseDocument) => {
         res.json({
           username: user.username,
           description,
