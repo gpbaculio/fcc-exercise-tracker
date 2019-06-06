@@ -9,15 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Exercise_1 = require("../models/Exercise");
-const User_1 = require("models/User");
+const User_1 = require("../models/User");
 class ExerciseController {
     constructor() {
         this.add = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { description, duration, date, userId } = req.body;
-            const user = yield User_1.default.findOne({ userId });
+            const user = yield User_1.default.findOne({ _id: userId });
             if (user === null)
                 return res.json('User Id does not exist');
-            const exercise = yield new Exercise_1.default({ description, duration, date });
+            const exercise = yield new Exercise_1.default({
+                description,
+                duration,
+                date,
+                userId
+            });
             exercise.date instanceof Date;
             exercise
                 .save()
@@ -26,8 +31,8 @@ class ExerciseController {
                     username: user.username,
                     description,
                     duration,
-                    _id: user._id,
-                    date
+                    userId: user._id,
+                    date: new Date(exercise.date).toDateString()
                 });
             })
                 .catch(error => res.status(400).json({ error }));

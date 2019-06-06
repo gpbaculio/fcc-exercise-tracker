@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const User_1 = require("../models/User");
-const Exercise_1 = require("models/Exercise");
+const Exercise_1 = require("../models/Exercise");
 class UserController {
     constructor() {
         this.isExisting = (key, val) => __awaiter(this, void 0, void 0, function* () {
@@ -17,11 +17,12 @@ class UserController {
             if (user !== null)
                 return true;
             else
-                false;
+                return false;
         });
         this.add = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { username } = req.body;
-            if (this.isExisting('username', username)) {
+            const isExisting = yield this.isExisting('username', username);
+            if (isExisting) {
                 res.json('Username already taken.');
             }
             else {
@@ -40,17 +41,18 @@ class UserController {
             const { userId, from, to, limit } = req.query;
             if (!userId)
                 return res.json('No UserId provided');
-            if (this.isExisting('_id', userId)) {
+            const isExisting = yield this.isExisting('_id', userId);
+            if (isExisting) {
                 if (!from && to)
                     return res.json('Please provide starting date');
                 const query = { userId };
                 if (from)
                     query.date = { $gte: from };
                 if (to)
-                    query.date = Object.assign({}, query.date, { $lte: to });
+                    query.date = Object.assign({}, query.date, { $lte: new Date(to) });
                 if (limit)
                     query.limit = limit;
-                yield Exercise_1.default.find({ query })
+                yield Exercise_1.default.find(query)
                     .then(exercises => res.json(exercises))
                     .catch(error => res.json({ error }));
             }

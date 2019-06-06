@@ -3,18 +3,20 @@ import * as mongoose from 'mongoose';
 const bodyParser = require('body-parser');
 var cors = require('cors');
 
-import UrlRoutes from './routes/UserRoutes';
+import UserRoutes from './routes/UserRoutes';
+import ExerciseRoutes from './routes/ExerciseRoutes';
 import ViewsRoutes from './routes/ViewsRoutes';
 
 class App {
   public app: express.Application = express();
-  public urlRoutes: UrlRoutes = new UrlRoutes();
+  public userRoutes: UserRoutes = new UserRoutes();
+  public exerciseRoutes: ExerciseRoutes = new ExerciseRoutes();
   public viewsRoutes: ViewsRoutes = new ViewsRoutes();
 
   private mongoSetup(): void {
     (<any>mongoose).Promise = global.Promise;
     mongoose.connect(
-      'mongodb://shelajoy:shelajoy2019@ds059546.mlab.com:59546/fcc-url-shortener',
+      'mongodb://shelajoy:shelajoy2019@ds233737.mlab.com:33737/fcc-exercise-tracker',
       {
         useNewUrlParser: true,
         useCreateIndex: true
@@ -30,7 +32,8 @@ class App {
     );
     this.app.use(cors({ optionSuccessStatus: 200 })); // some legacy browsers choke on 204
     this.app.use(bodyParser.json());
-    this.urlRoutes.routes(this.app);
+    this.userRoutes.routes(this.app);
+    this.exerciseRoutes.routes(this.app);
     this.viewsRoutes.routes(this.app);
   }
 }
