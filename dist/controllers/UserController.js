@@ -47,7 +47,7 @@ class UserController {
                     return res.json('Please provide starting date');
                 const query = { userId };
                 if (from)
-                    query.date = { $gte: from };
+                    query.date = { $gte: new Date(from) };
                 if (to)
                     query.date = Object.assign({}, query.date, { $lte: new Date(to) });
                 if (limit)

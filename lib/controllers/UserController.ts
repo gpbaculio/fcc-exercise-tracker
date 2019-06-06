@@ -40,7 +40,7 @@ export default class UserController {
     if (isExisting) {
       if (!from && to) return res.json('Please provide starting date');
       const query: Query = { userId };
-      if (from) query.date = { $gte: from };
+      if (from) query.date = { $gte: new Date(from) };
       if (to) query.date = { ...query.date, $lte: new Date(to) };
       if (limit) query.limit = limit;
       await Exercise.find(query)
